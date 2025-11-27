@@ -1,9 +1,10 @@
+> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>◕‿◕𝓑 𝓻 𝓸 𝓼 𝓱 𝓴 𝓪◕‿◕ - Чат Рулетка</title>
+    <title>Онлайн Чат-Рулетка</title>
     <style>
         * {
             margin: 0;
@@ -11,95 +12,107 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        .header {
-            text-align: center;
+            align-items: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #00adb5;
-            position: relative;
         }
-
-        .title {
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
             font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00adb5, #a8e6cf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(0, 173, 181, 0.5);
             margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
-
-        .subtitle {
-            font-size: 1rem;
-            color: #eeeeee;
+        
+        .tagline {
+            font-size: 1.1rem;
             opacity: 0.8;
         }
-
-        .container {
+        
+        .main-content {
             display: flex;
-            flex: 1;
-            padding: 20px;
+            flex-direction: column;
             gap: 20px;
         }
-
-        .chat-container {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            background: rgba(30, 30, 46, 0.7);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid #00adb5;
-        }
-
+        
         .video-container {
             position: relative;
-            flex: 1;
+            width: 100%;
+            height: 400px;
             background: #000;
+            border-radius: 10px;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 400px;
         }
-
-        .video-placeholder {
+        
+        .video-feed {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .searching-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #00adb5;
-            font-size: 1.5rem;
+            z-index: 10;
         }
-
-        .video-placeholder i {
-            font-size: 4rem;
+        
+        .searching-text {
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            color: #00adb5;
+            animation: pulse 1.5s infinite;
         }
-
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fdbb2d;
+            animation: spin 1s linear infinite;
+        }
+        
         .controls {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(20, 20, 35, 0.8);
+            gap: 15px;
+            margin-top: 20px;
         }
-
-        .control-btn {
+        
+        .btn {
             padding: 12px 25px;
             border: none;
             border-radius: 50px;
@@ -111,791 +124,356 @@
             align-items: center;
             gap: 8px;
         }
-
-        .start-btn {
-            background: linear-gradient(45deg, #00adb5, #00c9c8);
+        
+        .btn-primary {
+            background: #fdbb2d;
+            color: #1a2a6c;
+        }
+        
+        .btn-primary:hover {
+            background: #ffa500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(253, 187, 45, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4);
         }
-
-        .start-btn:hover {
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 173, 181, 0.6);
-        }
 
-        .stop-btn {
-            background: linear-gradient(45deg, #ff2e63, #ff5c8d);
+> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
+}
+        
+        .btn-danger {
+            background: #b21f1f;
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.4);
         }
-
-        .stop-btn:hover {
+        
+        .btn-danger:hover {
+            background: #8a1919;
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 46, 99, 0.6);
         }
-
-        .next-btn {
-            background: linear-gradient(45deg, #a8e6cf, #6ce5b1);
-            color: #1a1a2e;
-            box-shadow: 0 5px 15px rgba(168, 230, 207, 0.4);
-        }
-
-        .next-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(168, 230, 207, 0.6);
-        }
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-.sidebar {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .panel {
-            background: rgba(30, 30, 46, 0.7);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid #00adb5;
-        }
-
-        .panel-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #00adb5;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .bot-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .bot-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: rgba(40, 40, 62, 0.7);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .bot-item:hover {
-            background: rgba(50, 50, 82, 0.7);
-            transform: translateX(5px);
-        }
-
-        .bot-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00adb5, #a8e6cf);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .bot-info {
-            flex: 1;
-        }
-
-        .bot-name {
-            font-weight: bold;
-        }
-
-        .bot-desc {
-            font-size: 0.8rem;
-            color: #aaaaaa;
-        }
-
-        .bot-status {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #4caf50;
-        }
-
-        .dev-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .dev-btn {
+        
+        .chat-container {
             background: rgba(0, 0, 0, 0.5);
-            color: #00adb5;
-            border: 1px solid #00adb5;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dev-btn:hover {
-            background: rgba(0, 173, 181, 0.2);
-        }
-
-        .dev-panel {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: rgba(20, 20, 35, 0.95);
             border-radius: 10px;
             padding: 15px;
-            width: 300px;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid #00adb5;
-        }
-
-        .dev-option {
-            padding: 10px;
-            margin: 5px 0;
-            background: rgba(40, 40, 62, 0.7);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dev-option:hover {
-            background: rgba(50, 50, 82, 0.7);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #00adb5;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #aaaaaa;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
+            height: 200px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-height: 300px;
         }
-
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
         .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .user-message {
+            background: rgba(253, 187, 45, 0.3);
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message {
+            background: rgba(26, 42, 108, 0.5);
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input {
             display: flex;
             gap: 10px;
-            animation: fadeIn 0.5s ease;
         }
-
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .chat-input input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .chat-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #1a2a6c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background: #2538a0;
+        }
+        
+        .user-count {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .bot-indicator {
+            display: inline-block;
+            background: rgba(178, 31, 31, 0.7);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-.message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff2e63, #ff5c8d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-
-        .message-content {
-            background: rgba(40, 40, 62, 0.7);
-            padding: 12px;
-            border-radius: 10px;
-            flex: 1;
-        }
-
-        .message-sender {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #00adb5;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            background: rgba(20, 20, 35, 0.8);
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 50px;
-            border: none;
-            background: rgba(40, 40, 62, 0.7);
-            color: white;
-            outline: none;
-        }
-
-        .chat-input button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #00adb5, #00c9c8);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .chat-input button:hover {
-            transform: scale(1.05);
-        }
-
-        .connection-status {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-        }
-
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ff2e63;
-        }
-
-        .status-indicator.connected {
-            background: #4caf50;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid #00adb5;
-            font-size: 0.8rem;
-            color: #aaaaaa;
-        }
-
-        .typing-indicator {
-            display: none;
-            padding: 10px;
-            color: #00adb5;
-            font-style: italic;
-        }
-
-        /* Адаптивность */
+        
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
+            .video-container {
+                height: 300px;
             }
             
-            .sidebar {
-                flex-direction: row;
+            h1 {
+                font-size: 2rem;
             }
             
-            .panel {
-                flex: 1;
+            .controls {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                padding: 10px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="title">◕‿◕𝓑 𝓻 𝓸 𝓼 𝓱 𝓴 𝓪◕‿◕</div>
-        <div class="subtitle">Анонимный видеочат с ботами и нейросетями</div>
+    <div class="container">
+        <header>
+            <h1>Онлайн Чат-Рулетка</h1>
+            <p class="tagline">Общайтесь с случайными собеседниками со всего мира!</p>
+        </header>
         
-        <div class="dev-menu">
-            <button class="dev-btn" id="devBtn">Меню разработчика</button>
-            <div class="dev-panel" id="devPanel">
-                <div class="dev-option">Настройки соединения</div>
-                <div class="dev-option">Логи чата</div>
-                <div class="dev-option">Статистика использования</div>
-                <div class="dev-option">Тестирование ботов</div>
-                <div class="dev-option">API ключи</div>
-                <div class="dev-option">Настройки интерфейса</div>
-            </div>
-        </div>
-        
-        <div class="connection-status">
-            <div class="status-indicator" id="statusIndicator"></div>
-            <span id="statusText">Поиск собеседника...</span>
-        </div>
-    </div>
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-<div class="container">
-        <div class="chat-container">
+        <div class="main-content">
             <div class="video-container">
-                <div class="video-placeholder" id="videoPlaceholder">
-                    <i>📹</i>
-                    <div>Начните поиск собеседника</div>
+
+> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
+<div class="searching-overlay" id="searchingOverlay">
+                    <div class="searching-text">Поиск собеседника...</div>
+                    <div class="loader"></div>
                 </div>
-            </div>
-            
-            <div class="chat-messages" id="chatMessages">
-                <div class="message">
-                    <div class="message-avatar">Б</div>
-                    <div class="message-content">
-                        <div class="message-sender">Broshka Bot</div>
-                        <div>Добро пожаловать в ◕‿◕𝓑 𝓻 𝓸 𝓼 𝓱 𝓴 𝓪◕‿◕! Нажмите "Начать поиск", чтобы найти собеседника.</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="typing-indicator" id="typingIndicator">
-                Собеседник печатает...
-            </div>
-            
-            <div class="chat-input">
-                <input type="text" id="messageInput" placeholder="Введите сообщение...">
-                <button id="sendMessage">Отправить</button>
+                <video class="video-feed" id="videoFeed" autoplay muted></video>
             </div>
             
             <div class="controls">
-                <button class="control-btn start-btn" id="startBtn">
-                    <i>▶</i> Начать поиск
+                <button class="btn btn-primary" id="startBtn">
+                    <span>Начать поиск</span>
                 </button>
-                <button class="control-btn stop-btn" id="stopBtn" disabled>
-                    <i>⏹</i> Остановить
+                <button class="btn btn-secondary" id="nextBtn" disabled>
+                    <span>Следующий</span>
                 </button>
-                <button class="control-btn next-btn" id="nextBtn" disabled>
-                    <i>⏭</i> Следующий
+                <button class="btn btn-danger" id="stopBtn" disabled>
+                    <span>Завершить</span>
                 </button>
             </div>
-        </div>
-        
-        <div class="sidebar">
-            <div class="panel">
-                <div class="panel-title">
-                    <i>🤖</i> Доступные боты
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        Добро пожаловать в чат-рулетку! Нажмите "Начать поиск", чтобы найти собеседника.
+                    </div>
                 </div>
-                <div class="bot-list">
-                    <div class="bot-item" data-bot="ai">
-                        <div class="bot-avatar">AI</div>
-                        <div class="bot-info">
-                            <div class="bot-name">Искусственный интеллект</div>
-                            <div class="bot-desc">Умный собеседник на базе нейросети</div>
-                        </div>
-                        <div class="bot-status"></div>
-                    </div>
-                    <div class="bot-item" data-bot="psychologist">
-                        <div class="bot-avatar">П</div>
-                        <div class="bot-info">
-                            <div class="bot-name">Психолог</div>
-                            <div class="bot-desc">Поможет разобраться в проблемах</div>
-                        </div>
-                        <div class="bot-status"></div>
-                    </div>
-                    <div class="bot-item" data-bot="entertainer">
-                        <div class="bot-avatar">Р</div>
-                        <div class="bot-info">
-                            <div class="bot-name">Рассказчик</div>
-                            <div class="bot-desc">Интересные истории и факты</div>
-                        </div>
-                        <div class="bot-status"></div>
-                    </div>
-                    <div class="bot-item" data-bot="gamer">
-                        <div class="bot-avatar">И</div>
-                        <div class="bot-info">
-                            <div class="bot-name">Игрок</div>
-                            <div class="bot-desc">Сыграет с вами в словесные игры</div>
-                        </div>
-                        <div class="bot-status"></div>
-                    </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Введите сообщение..." disabled>
+                    <button id="sendBtn" disabled>Отправить</button>
                 </div>
             </div>
             
-            <div class="panel">
-                <div class="panel-title">
-                    <i>📊</i> Статистика
-                </div>
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-<div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="onlineCount">1,234</div>
-                        <div class="stat-label">Онлайн</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="chatsCount">5,678</div>
-                        <div class="stat-label">Чатов сегодня</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="countriesCount">42</div>
-                        <div class="stat-label">Страны</div>
-                    </div>
-                </div>
+            <div class="user-count">
+                Онлайн: <span id="onlineCount">1,247</span> пользователей
             </div>
         </div>
-    </div>
-
-    <div class="footer">
-        ◕‿◕𝓑 𝓻 𝓸 𝓼 𝓱 𝓴 𝓪◕‿◕ | Анонимный чат | Все права защищены | Версия 2.1.4
     </div>
 
     <script>
-        // Элементы интерфейса
+        // Элементы DOM
         const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const devBtn = document.getElementById('devBtn');
-        const devPanel = document.getElementById('devPanel');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const statusText = document.getElementById('statusText');
-        const videoPlaceholder = document.getElementById('videoPlaceholder');
+        const stopBtn = document.getElementById('stopBtn');
+        const searchingOverlay = document.getElementById('searchingOverlay');
+        const videoFeed = document.getElementById('videoFeed');
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
-        const sendMessageBtn = document.getElementById('sendMessage');
-        const typingIndicator = document.getElementById('typingIndicator');
-        const botItems = document.querySelectorAll('.bot-item');
-        
-        // Переменные состояния
+        const sendBtn = document.getElementById('sendBtn');
+        const onlineCount = document.getElementById('onlineCount');
+
+        // Состояние приложения
         let isConnected = false;
         let currentBot = null;
-        let connectionTimer = null;
-        let typingTimer = null;
-        
-        // Случайные имена для собеседников
-        const names = ['Алексей', 'Мария', 'Дмитрий', 'Анна', 'Сергей', 'Ольга', 'Иван', 'Елена', 'Максим', 'Наталья'];
-        const countries = ['Россия', 'Украина', 'Беларусь', 'Казахстан', 'Германия', 'США', 'Франция', 'Италия'];
-        
-        // Инициализация
-        function init() {
-            // Обработчики кнопок
-            startBtn.addEventListener('click', startSearch);
-            stopBtn.addEventListener('click', stopSearch);
-            nextBtn.addEventListener('click', nextChat);
-            devBtn.addEventListener('click', toggleDevMenu);
-            sendMessageBtn.addEventListener('click', sendMessage);
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendMessage();
-            });
+        let messageCount = 0;
+
+        // Список ботов с их характеристиками
+        const bots = [
+            {
+                name: "Анна",
+                age: 24,
+                country: "Россия",
+                interests: ["путешествия", "фотография", "кофе"],
+                video: "anna",
+                messages: [
+                    "Привет! Как твои дела?",
+                    "Я из Москвы, а ты откуда?",
+                    "Люблю путешествовать. Была уже в 15 странах!",
+                    "У тебя есть хобби?",
+                    "Я работаю дизайнером, очень нравится творческая работа.",
+                    "Какую музыку ты слушаешь?",
+                    "Сегодня отличная погода, не правда ли?",
+                    "Ты часто пользуешься чат-рулеткой?",
+                    "У меня есть кот, его зовут Барсик :)",
+                    "Что ты планируешь на выходные?"
+                ]
+            },
+            {
+                name: "Максим",
+                age: 29,
+                country: "Украина",
+                interests: ["спорт", "технологии", "автомобили"],
+                video: "maxim",
+                messages: [
+                    "Приветствую! Рад познакомиться.",
+                    "Я из Киева, красивый город!",
+                    "Увлекаюсь спортом, особенно футболом.",
+                    "Как прошел твой день?",
+                    "Работаю в IT-сфере, программистом.",
+                    "Люблю смотреть фильмы в свободное время.",
+                    "Был недавно в Карпатах, очень красиво там!",
+
+> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
+"У тебя есть машина?",
+                    "Слушаю в основном рок-музыку.",
+                    "Какие у тебя планы на будущее?"
+                ]
+            },
+            {
+                name: "София",
+                age: 21,
+                country: "Беларусь",
+                interests: ["искусство", "литература", "йога"],
+                video: "sofia",
+                messages: [
+                    "Привет! Очень рада встрече!",
+                    "Я из Минска, у нас тут красиво.",
+                    "Люблю читать книги, особенно классику.",
+                    "Занимаюсь йогой уже два года.",
+                    "Учусь в университете на филолога.",
+                    "Обожаю посещать художественные выставки.",
+                    "Как ты провел сегодняшний день?",
+                    "У тебя есть любимый писатель?",
+                    "Мечтаю побывать в Париже.",
+                    "Что для тебя важно в жизни?"
+                ]
+            }
+        ];
+
+        // Функция для обновления счетчика онлайн пользователей
+        function updateOnlineCount() {
+            const baseCount = 1247;
+            const randomChange = Math.floor(Math.random() * 21) - 10; // -10 to +10
+            onlineCount.textContent = (baseCount + randomChange).toLocaleString();
             
-            // Обработчики ботов
-            botItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    selectBot(this.dataset.bot);
-                });
-            });
-            
-            // Закрытие меню разработчика при клике вне его
-            document.addEventListener('click', function(e) {
-                if (!devBtn.contains(e.target) && !devPanel.contains(e.target)) {
-                    devPanel.style.display = 'none';
-                }
-            });
-            
-            // Обновление статистики
-            updateStats();
+            // Обновляем каждые 10 секунд
+            setTimeout(updateOnlineCount, 10000);
         }
-        
-        // Поиск собеседника
-        function startSearch() {
+
+        // Функция для поиска собеседника
+        function findPartner() {
             if (isConnected) return;
             
+            // Показываем анимацию поиска
+            searchingOverlay.style.display = 'flex';
             startBtn.disabled = true;
-            stopBtn.disabled = false;
-            nextBtn.disabled = true;
             
-            statusText.textContent = 'Поиск собеседника...';
-            statusIndicator.classList.remove('connected');
+            // Имитируем поиск в течение 2-5 секунд
+            const searchTime = 2000 + Math.random() * 3000;
             
-            // Имитация поиска
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-let dots = '';
-            const searchInterval = setInterval(() => {
-                dots = dots.length < 3 ? dots + '.' : '';
-                statusText.textContent = 'Поиск собеседника' + dots;
-            }, 500);
-            
-            // Имитация соединения через 3-7 секунд
-            const connectTime = 3000 + Math.random() * 4000;
-            connectionTimer = setTimeout(() => {
-                clearInterval(searchInterval);
-                connectToUser();
-            }, connectTime);
-        }
-        
-        // Подключение к собеседнику
-        function connectToUser() {
-            isConnected = true;
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-            nextBtn.disabled = false;
-            
-            statusText.textContent = 'Соединение установлено';
-            statusIndicator.classList.add('connected');
-            
-            // Обновление видео-заглушки
-            const name = names[Math.floor(Math.random() * names.length)];
-            const country = countries[Math.floor(Math.random() * countries.length)];
-            videoPlaceholder.innerHTML = 
-                <i>👤</i>
-                <div>${name}, ${country}</div>
-                <div style="font-size: 1rem; margin-top: 10px;">Видеосвязь</div>
-            ;
-            
-            // Добавление сообщения от бота
-            addMessage('Broshka Bot', Соединение с ${name} из ${country} установлено!, true);
-            
-            // Имитация приветствия от собеседника
             setTimeout(() => {
-                const greetings = [
-                    'Привет! Как дела?',
-                    'Здравствуйте! Рад познакомиться.',
-                    'Приветствую! Откуда вы?',
-                    'Привет! Как настроение?'
-                ];
-                const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-                addMessage(name, greeting);
-            }, 1000);
-        }
-        
-        // Остановка поиска/чата
-        function stopSearch() {
-            isConnected = false;
-            clearTimeout(connectionTimer);
-            
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-            nextBtn.disabled = true;
-            
-            statusText.textContent = 'Поиск собеседника...';
-            statusIndicator.classList.remove('connected');
-            
-            // Сброс видео-заглушки
-            videoPlaceholder.innerHTML = 
-                <i>📹</i>
-                <div>Начните поиск собеседника</div>
-            ;
-            
-            // Сообщение о завершении чата
-            addMessage('Broshka Bot', 'Чат завершен. Нажмите "Начать поиск" для нового соединения.', true);
-        }
-        
-        // Переход к следующему чату
-        function nextChat() {
-            stopSearch();
-            setTimeout(startSearch, 500);
-        }
-        
-        // Выбор бота
-        function selectBot(botType) {
-            if (isConnected) {
-                addMessage('Broshka Bot', 'Завершите текущий чат перед подключением бота.', true);
-                return;
-            }
-            
-            currentBot = botType;
-            
-            // Подсветка выбранного бота
-            botItems.forEach(item => {
-                if (item.dataset.bot === botType) {
-                    item.style.background = 'rgba(0, 173, 181, 0.3)';
-                } else {
-                    item.style.background = '';
-                }
-            });
-            
-            let botName = '';
-            switch(botType) {
-                case 'ai':
-                    botName = 'Искусственный интеллект';
-                    break;
-                case 'psychologist':
-                    botName = 'Психолог';
-                    break;
-                case 'entertainer':
-
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-botName = 'Рассказчик';
-                    break;
-                case 'gamer':
-                    botName = 'Игрок';
-                    break;
-            }
-            
-            addMessage('Broshka Bot', Выбран бот: ${botName}. Начните поиск для подключения., true);
-        }
-        
-        // Отправка сообщения
-        function sendMessage() {
-            const message = messageInput.value.trim();
-            if (!message) return;
-            
-            // Добавление своего сообщения
-            addMessage('Вы', message);
-            messageInput.value = '';
-            
-            // Имитация набора текста собеседником
-            if (isConnected) {
-                showTypingIndicator();
+                // Выбираем случайного бота
+                currentBot = bots[Math.floor(Math.random() * bots.length)];
                 
-                // Имитация ответа через 1-3 секунды
+                // Скрываем анимацию поиска
+                searchingOverlay.style.display = 'none';
+                
+                // В реальном приложении здесь бы подключалось видео
+                // Для демо мы просто показываем статичное изображение с именем бота
+                videoFeed.innerHTML = 
+                    <div style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, #1a2a6c, #b21f1f); color:white; font-size:24px;">
+                        <div style="font-size:3rem; margin-bottom:20px;">📹</div>
+                        <div>${currentBot.name}, ${currentBot.age}</div>
+                        <div style="font-size:16px; margin-top:10px;">${currentBot.country}</div>
+                        <div class="bot-indicator" style="margin-top:15px;">БОТ</div>
+                    </div>
+                ;
+                
+                // Активируем кнопки
+                nextBtn.disabled = false;
+                stopBtn.disabled = false;
+                messageInput.disabled = false;
+                sendBtn.disabled = false;
+                
+                isConnected = true;
+                
+                // Добавляем приветственное сообщение от бота
                 setTimeout(() => {
-                    hideTypingIndicator();
-                    generateResponse(message);
-                }, 1000 + Math.random() * 2000);
-            }
+                    addBotMessage(currentBot.messages[0]);
+                }, 1000);
+                
+            }, searchTime);
         }
-        
-        // Генерация ответа
-        function generateResponse(userMessage) {
-            let response = '';
-            const name = names[Math.floor(Math.random() * names.length)];
-            
-            if (currentBot) {
-                // Ответы от выбранного бота
-                switch(currentBot) {
-                    case 'ai':
-                        const aiResponses = [
-                            'Интересный вопрос! С точки зрения искусственного интеллекта, это можно рассмотреть с нескольких сторон.',
-                            'Моя нейросеть анализирует ваш запрос и генерирует наиболее релевантный ответ.',
-                            'На основе анализа больших данных, я могу сказать, что ваше сообщение содержит интересные идеи.',
-                            'Как искусственный интеллект, я постоянно учусь и развиваюсь. Ваш вопрос помогает мне стать лучше.'
-                        ];
-                        response = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-                        break;
-                    case 'psychologist':
-                        const psychResponses = [
-                            'Я понимаю ваши чувства. Давайте обсудим это подробнее.',
-                            'Интересно, что вы об этом думаете. Как это влияет на вашу жизнь?',
-                            'Многие люди испытывают подобные эмоции. Это абсолютно нормально.',
-                            'Давайте попробуем посмотреть на эту ситуацию с другой стороны.'
-                        ];
-                        response = psychResponses[Math.floor(Math.random() * psychResponses.length)];
-                        break;
-                    case 'entertainer':
-                        const stories = [
-                            'Знаете ли вы, что дельфины дают друг другу имена?',
-                            'А вы слышали историю о том, как один человек выиграл в лотерею два раза подряд?',
-                            'В мире существует более 7000 языков, но половина населения говорит всего на 23 из них.',
-                            'Кошки проводят около 70% своей жизни во сне.'
-                        ];
-                        response = stories[Math.floor(Math.random() * stories.length)];
-                        break;
-                    case 'gamer':
-                        const games = [
-                            'Давайте сыграем в города! Я начну: Москва.',
-                            'Как насчет загадки? Что можно сломать, даже не прикоснувшись к этому?',
-                            'Я загадал число от 1 до 10. Попробуйте угадать!',
-                            'Давайте поиграем в "Правда или действие"?'
-                        ];
-                        response = games[Math.floor(Math.random() * games.length)];
-                        break;
 
-> ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ︎ ︎ ᅠ ︎ ︎ ᅠ:
-}
-            } else {
-                // Обычные ответы от случайного пользователя
-                const responses = [
-                    'Интересно! Расскажите подробнее.',
-                    'Я с вами согласен!',
-                    'А у меня другое мнение на этот счет.',
-                    'Не могли бы вы объяснить, что вы имеете в виду?',
-                    'Спасибо, что поделились!',
-                    'Это заставляет задуматься...',
-                    'Я никогда не думал об этом с такой стороны.',
-                    'У вас очень интересная точка зрения!'
-                ];
-                response = responses[Math.floor(Math.random() * responses.length)];
-            }
-            
-            addMessage(currentBot ? 'Бот' : name, response);
-        }
-        
-        // Добавление сообщения в чат
-        function addMessage(sender, text, isSystem = false) {
-            const messageEl = document.createElement('div');
-            messageEl.className = 'message';
-            
-            // Определяем аватар
-            let avatarText = '?';
-            if (sender === 'Вы') avatarText = 'Я';
-            else if (sender === 'Broshka Bot') avatarText = 'Б';
-            else if (sender === 'Бот') avatarText = 'Б';
-            else avatarText = sender.charAt(0);
-            
-            messageEl.innerHTML = 
-                <div class="message-avatar">${avatarText}</div>
-                <div class="message-content">
-                    <div class="message-sender">${sender}</div>
-                    <div>${text}</div>
-                </div>
-            ;
-            
-            if (isSystem) {
-                messageEl.style.opacity = '0.8';
-            }
-            
-            chatMessages.appendChild(messageEl);
+        // Функция для добавления сообщения от бота
+        function addBotMessage(text) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'bot-message');
+            messageElement.textContent = text;
+            chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Показать индикатор набора текста
-        function showTypingIndicator() {
-            typingIndicator.style.display = 'block';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Скрыть индикатор набора текста
-        function hideTypingIndicator() {
-            typingIndicator.style.display = 'none';
-        }
-        
-        // Переключение меню разработчика
-        function toggleDevMenu() {
-            devPanel.style.display = devPanel.style.display === 'block' ? 'none' : 'block';
-        }
-        
-        // Обновление статистики
-        function updateStats() {
-            // Имитация случайных данных
-            document.getElementById('onlineCount').textContent = (1234 + Math.floor(Math.random() * 100)).toLocaleString();
-            document.getElementById('chatsCount').textContent = (5678 + Math.floor(Math.random() * 200)).toLocaleString();
-            
-            // Обновление каждые 10 секунд
-            setTimeout(updateStats, 10000);
-        }
-        
-        // Запуск приложения
-        init();
-    </script>
-</body>
-</html>
